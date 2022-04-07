@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+# Activar rewrite
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?https://gnuino.com.ar/~mauri/www/undertake/
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#ErrorDocument 404 https://gnuino.com.ar/~mauri/www/undertake/
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+SetEnv ENVIRONMENT produccion
+RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
+</IfModule>
